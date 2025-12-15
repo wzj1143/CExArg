@@ -1,0 +1,19 @@
+% Example AF used in the thesis (CE1)
+% Arguments
+arg(a).
+arg(b).
+arg(c).
+arg(d).
+arg(e).
+arg(f).
+arg(g).
+
+% Attacks
+att(b,c).
+att(b,f).
+
+att(d,e).
+att(e,a).
+att(e,g).
+
+

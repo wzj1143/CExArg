@@ -1,0 +1,23 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+
+# IDE / editor files
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Optional: logs or temp files
+*.log
+
+# Ignore ICCMA benchmark under data
+data/*
+!data/examples/
+!data/examples/**

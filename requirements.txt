@@ -1,0 +1,4 @@
+clingo==5.8.0
+matplotlib==3.10.7
+pandas==2.3.3
+pysat==3.2.2
