@@ -29,21 +29,24 @@ where:
 ---
 
 ## 2. Repository Structure
-
+```text
 CE/
-├── af_io.py  
-├── aspartix_solver.py  
-├── min_edit_solver.py  
-├── ce_builder.py  
-├── main.py  
-├── helpers/  
-├── semantics/  
-├── data/  
-├── test/  
-├── results/  
-├── requirements.txt  
-└── README.md  
-
+├── af_io.py                 # Parsing of APX files and internal AF representation
+├── aspartix_solver.py       # Extension computation via ASPARTIX encodings and clingo
+├── min_edit_solver.py       # Minimal counterfactual edit sets computation (MaxSAT + CEGAR)
+├── ce_builder.py            # Construction and formatting of contrastive explanations
+├── main.py                  # Command-line interface for computing a CE
+│
+├── helpers/                 # Auxiliary utilities (validation, plotting...)
+├── semantics/               # ASPARTIX semantics encodings (adm, comp, pref, stab)
+├── data/
+│   └── examples/            # Argumentation frameworks used in the thesis examples
+├── test/                    # Test scripts (e.g., auto_test)
+├── results/                 # Generated CSV files and plots from experiments
+│
+├── requirements.txt         # Python dependencies
+└── README.md                # Project documentation
+```
 ---
 
 ## 3. Requirements and Installation
@@ -59,11 +62,18 @@ pip install -r requirements.txt
 ---
 
 ## 4. Command-Line Usage
+This repository does **not** include the ICCMA 2019 benchmark instances due to licensing and size considerations.  
+To run the system on your own data, please place the desired argumentation framework files (in APX format) into the `data/` directory.
 
-### Minimal Example
+A contrastive explanation can then be computed using the following general command:
 
 ```bash
-python main.py   --apx data/instances/A-1-BA_40_80_5.apx   --fact a10   --foil a0   --semantics stable
+python main.py   --apx <path-to-af.apx>  --fact <fact-argument> --foil <foil-argument> --semantics <semantics>
+```
+### Example
+
+```bash
+python main.py   --apx data/examples/ce1.apx   --fact d   --foil e   --semantics preferred
 ```
 
 ### Optional Arguments
@@ -96,10 +106,10 @@ If you want to run the automated experiments, you can use the auto_test script p
 ### Example
 
 ```bash
-python test/auto_test.py --apx data/instances/A-1-BA_40_80_5.apx
+python test/auto_test.py --apx data/examples/ce1.apx
 ```
 ### Optional Arguments
-- `--n_trials` (default: 10)
+- `--n_trials` (default: 10)  # Number of successful CE you want
 
 ---
 
