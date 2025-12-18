@@ -52,3 +52,21 @@ def validate_fact_and_foil(
         )
 
     return fact_witness
+
+def is_credulously_accepted(
+    af: ArgumentationFramework,
+    arg: str,
+    semantics: str,
+    semantics_dir: str = "semantics",
+) -> bool:
+    """
+    Check whether `arg` is credulously σ-accepted in `af`.
+    """
+    exts = compute_extensions(
+        af,
+        semantics=semantics,
+        semantics_dir=semantics_dir,
+        models=1,
+        force_in=arg,
+    )
+    return bool(exts)

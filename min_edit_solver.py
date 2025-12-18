@@ -169,6 +169,43 @@ def find_minimal_edit(
                     hard_counter += 1
                     continue
 
+                # --------------------------------------------------
+                # SR variant ⊆-minimality w.r.t. foil acceptance
+                # Definition 3.9 (iii)
+                # --------------------------------------------------
+                violates_subset_minimality = False
+                for e in chosen_delta:
+                    delta_prime = chosen_delta - {e}
+                    af_test = apply_delta(af, delta_prime)
+
+                    if is_credulously_accepted(
+                            af_test,
+                            arg=foil,
+                            semantics=semantics,
+                            semantics_dir=semantics_dir,
+                    ):
+                        violates_subset_minimality = True
+                        break
+
+                if violates_subset_minimality:
+                    if verbose:
+                        print(
+                            f"[Status-Reversal] Rejected δ (|δ|={len(chosen_delta)}) "
+                            f"because it violates ⊆-minimality: "
+                            f"a proper subset already makes the foil accepted."
+                        )
+
+                    block: List[int] = []
+                    for i in range(1, len(edits) + 1):
+                        if i in true_vars:
+                            block.append(-i)
+                        else:
+                            block.append(+i)
+                    rc2.add_clause(block)
+                    hard_counter += 1
+                    continue
+
+
             if verbose:
                 print(f"[OK] minimal δ found: kmin={len(chosen_delta)}")
             formatted_strs = format_delta(chosen_delta, af.attacks)

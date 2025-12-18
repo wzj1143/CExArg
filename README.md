@@ -10,13 +10,13 @@ Given an AF, a **fact** and a **foil**, CExArg identifies a minimal set of modif
 ## 1. Overview
 
 ### Input
-- An abstract argumentation framework (APX format)
+- An abstract AF (APX format)
 - A **fact** argument and a **foil** argument
 - A semantics (`admissible`, `complete`, `preferred`, `stable`)
 - Optional constraints
 
 ### Output
-A **contrastive explanation** of the form:
+A **CE** of the form:
 
 CE = (C_∩, C_p, C_q, C_δ)
 
@@ -34,13 +34,13 @@ CE/
 ├── af_io.py                 # Parsing of APX files and internal AF representation
 ├── aspartix_solver.py       # Extension computation via ASPARTIX encodings and clingo
 ├── min_edit_solver.py       # Minimal counterfactual edit sets computation (MaxSAT + CEGAR)
-├── ce_builder.py            # Construction and formatting of contrastive explanations
+├── ce_builder.py            # Construction and formatting of CEs
 ├── main.py                  # Command-line interface for computing a CE
 │
 ├── helpers/                 # Auxiliary utilities (validation, plotting...)
 ├── semantics/               # ASPARTIX semantics encodings (adm, comp, pref, stab)
 ├── data/
-│   └── examples/            # Argumentation frameworks used in the thesis examples
+│   └── examples/            # AF used in the thesis examples
 ├── test/                    # Test scripts (e.g., auto_test)
 ├── results/                 # Generated CSV files and plots from experiments
 │
@@ -63,9 +63,9 @@ pip install -r requirements.txt
 
 ## 4. Command-Line Usage
 This repository does **not** include the ICCMA 2019 benchmark instances due to licensing and size considerations.  
-To run the system on your own data, please place the desired argumentation framework files (in APX format) into the `data/` directory.
+To run the system on your own data, please place the desired AF files (in APX format) into the `data/` directory.
 
-A contrastive explanation can then be computed using the following general command:
+A CE can then be computed using the following general command:
 
 ```bash
 python main.py   --apx <path-to-af.apx>  --fact <fact-argument> --foil <foil-argument> --semantics <semantics>
