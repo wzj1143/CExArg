@@ -91,6 +91,7 @@ python main.py   --apx data/examples/ce1.apx   --fact d   --foil e   --semantics
 ## 5. Algorithmic Core
 
 CExArg combines:
+- AF in/output
 - ASP-based semantic reasoning (ASPARTIX + clingo)
 - MaxSAT-based minimal editing (RC2 + CEGAR)
 - Structured CE construction
