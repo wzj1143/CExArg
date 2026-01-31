@@ -105,15 +105,23 @@ Results are written to `results/` and visualized using helper plotting utilities
 
 If you want to run the automated experiments, you can use the auto_test script provided in the test/ directory.
 ### Example
-
+single AF
 ```bash
 python test/auto_test.py --apx data/examples/ce1.apx
 ```
+a set of AFs
+```bash
+python test/auto_test.py --instances_dir data/instances --n_trials 10 --out results/baseline_ce_results.csv
+```
 ### Optional Arguments
 - `--n_trials` (default: 10)  # Number of successful CE you want
-
+- `--instances_dir` # Directory of the set of AFs
+- `--out` # Directory of the result csv file
 ---
-
+If you want to generate plots
+```bash
+python helpers/plot.py
+```
 ## 7. Relation to the Thesis
 
 This implementation realizes the **argument-contrast** setting defined in the thesis.
