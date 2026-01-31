@@ -115,7 +115,7 @@ python test/auto_test.py --instances_dir data/instances --n_trials 10 --out resu
 ```
 ### Optional Arguments
 - `--n_trials` (default: 10)  # Number of successful CE you want
-- `--instances_dir` # Directory of the set of AFs (need to be .apx format)
+- `--instances_dir` # Directory of the set of AFs (AF instances need to be .apx format)
 - `--out`(default: result/baseline_ce_results.csv) # Directory of the result csv file
 ---
 If you want to generate plots
