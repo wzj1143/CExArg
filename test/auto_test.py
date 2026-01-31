@@ -206,37 +206,79 @@ def run_baseline_random_tests(
         )
         f_out.flush()
 
+def run_dir(
+    instances_dir: str,
+    semantics_dir: str,
+    n_trials: int,
+    output_file: str,
+    radius: int = 2,
+    edit_mode: str = "both",
+    seed: int = 2025,
+):
+    from pathlib import Path
+
+    instances_dir = Path(instances_dir)
+    apx_files = sorted(instances_dir.rglob("*.apx"))
+    print(f"[Info] Found {len(apx_files)} .apx instances under {instances_dir}")
+
+    for i, apx in enumerate(apx_files, 1):
+        print(f"\n========== [{i}/{len(apx_files)}] {apx} ==========")
+        try:
+            run_baseline_random_tests(
+                apx_path=str(apx),
+                semantics_dir=semantics_dir,
+                n_trials=n_trials,
+                output_file=output_file,
+                radius=radius,
+                edit_mode=edit_mode,
+                seed=seed,
+            )
+        except Exception as e:
+            # IMPORTANT: never stop the whole batch because of one bad instance
+            print(f"[Batch-Error] Instance failed: {apx} | error={e}")
+            continue
+
 def main():
     import argparse
 
-    parser = argparse.ArgumentParser(
-        description="Automated baseline CE evaluation for a given AF"
-    )
+    parser = argparse.ArgumentParser(description="Automated baseline CE evaluation")
+
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--apx", type=str, help="single .apx instance")
+    group.add_argument("--instances_dir", type=str, help="directory with many .apx instances")
+
+    parser.add_argument("--n_trials", default=10, type=int)
+    parser.add_argument("--radius", default=2, type=int)
+    parser.add_argument("--edit_mode", default="both", choices=["both", "add", "del"])
     parser.add_argument(
-        "--apx",
-        required=True,
+        "--out",
+        default=str(RESULT_DIR / "baseline_ce_results.csv"),
         type=str,
-        help="Path to the APX argumentation framework",
-    )
-    parser.add_argument(
-        "--n_trials",
-        default=10,
-        type=int,
-        help="Number of successful baseline CEs to compute (default: 10)",
+        help="CSV output file (append mode)",
     )
 
     args = parser.parse_args()
 
-    run_baseline_random_tests(
-        apx_path=args.apx,
-        semantics_dir=str(SEMANTICS_DIR),
-        n_trials=args.n_trials,
-        output_file=str(RESULT_DIR / "baseline_ce_results.csv"),
-        radius=2,
-        edit_mode="both",
-        seed=2025,
-    )
-
+    if args.apx:
+        run_baseline_random_tests(
+            apx_path=args.apx,
+            semantics_dir=str(SEMANTICS_DIR),
+            n_trials=args.n_trials,
+            output_file=args.out,
+            radius=args.radius,
+            edit_mode=args.edit_mode,
+            seed=2025,
+        )
+    else:
+        run_dir(
+            instances_dir=args.instances_dir,
+            semantics_dir=str(SEMANTICS_DIR),
+            n_trials=args.n_trials,
+            output_file=args.out,
+            radius=args.radius,
+            edit_mode=args.edit_mode,
+            seed=2025,
+        )
 
 if __name__ == "__main__":
     main()

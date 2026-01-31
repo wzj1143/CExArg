@@ -110,49 +110,47 @@ def plot_metric(df: pd.DataFrame,
 def main(csv_path: str):
     df = load_results(csv_path)
 
-    # C_cap_size
+    plot_dir = RESULT_DIR / "plots"
+    plot_dir.mkdir(parents=True, exist_ok=True)
+
     plot_metric(
         df,
         metric="C_cap_size",
         ylabel="size of C_cap",
         log_y=False,
-        output="C_cap_size_vs_args.png",
+        output=str(plot_dir / "C_cap_size_vs_args.png"),
     )
 
-    # C_p_size
     plot_metric(
         df,
         metric="C_p_size",
         ylabel="size of C_p",
         log_y=False,
-        output="C_p_size_vs_args.png",
+        output=str(plot_dir / "C_p_size_vs_args.png"),
     )
 
-    # C_q_size
     plot_metric(
         df,
         metric="C_q_size",
         ylabel="size of C_q",
         log_y=False,
-        output="C_q_size_vs_args.png",
+        output=str(plot_dir / "C_q_size_vs_args.png"),
     )
 
-    # C_delta_size
     plot_metric(
         df,
         metric="C_delta_size",
         ylabel="size of C_delta",
         log_y=False,
-        output="C_delta_size_vs_args.png",
+        output=str(plot_dir / "C_delta_size_vs_args.png"),
     )
 
-    # time_sec (log-scale, like Wallner)
     plot_metric(
         df,
         metric="time_sec",
         ylabel="CPU time (seconds)",
         log_y=True,
-        output="time_sec_vs_args.png",
+        output=str(plot_dir / "time_sec_vs_args.png"),
     )
 
 
