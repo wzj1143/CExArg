@@ -101,7 +101,7 @@ CExArg combines:
 ## 6. Experiments
 
 Experimental scripts are located in `test/`.
-Results are written to `results/` and visualized using helper plotting utilities.
+Results are written to `result/` and visualized using helper plotting utilities.
 
 If you want to run the automated experiments, you can use the auto_test script provided in the test/ directory.
 ### Example
@@ -111,12 +111,12 @@ python test/auto_test.py --apx data/examples/ce1.apx
 ```
 a set of AFs
 ```bash
-python test/auto_test.py --instances_dir data/instances --n_trials 10 --out results/baseline_ce_results.csv
+python test/auto_test.py --instances_dir data/instances --n_trials 10 --out result/baseline_ce_results.csv
 ```
 ### Optional Arguments
 - `--n_trials` (default: 10)  # Number of successful CE you want
 - `--instances_dir` # Directory of the set of AFs
-- `--out` # Directory of the result csv file
+- `--out`(default: result/baseline_ce_results.csv) # Directory of the result csv file
 ---
 If you want to generate plots
 ```bash
